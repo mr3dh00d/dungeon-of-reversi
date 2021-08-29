@@ -1,5 +1,4 @@
 import cocos
-from pyglet import image
 import modules.background as background
 import modules.player as player
 from cocos.director import director
