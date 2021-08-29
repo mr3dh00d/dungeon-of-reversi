@@ -9,7 +9,6 @@ class Background(cocos.layer.Layer):
         self.backgorund_imagen=pyglet.image.ImageGrid(pyglet.image.load("assets/sprites/scenes/center/center.png"),1,4)
         self.setBlock()
 
-
     def setBlock(self):
         self.__set(0)
 
@@ -18,7 +17,7 @@ class Background(cocos.layer.Layer):
         
     def setSelected(self):
         self.__set(2)
-        
+
     def setCorupted(self):
         self.__set(3)
 
