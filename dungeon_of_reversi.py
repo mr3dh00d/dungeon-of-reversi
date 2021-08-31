@@ -1,5 +1,5 @@
 import cocos
-import pyglet
+import json
 import modules.background as background
 import modules.player as player
 from modules.mover import keyboard
@@ -10,7 +10,7 @@ if __name__=="__main__":
     director.window.push_handlers(keyboard)
     bkg = background.Background()
     plyr = player.Player()
-    bkg.setCorupted()
+    bkg.setSelected(json.load(open("data/maps.json"))['up-right']['image'])
     Scene = cocos.scene.Scene()
     Scene.add(bkg)
     Scene.add(plyr)

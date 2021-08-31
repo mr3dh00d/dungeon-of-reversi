@@ -6,26 +6,31 @@ class Background(cocos.layer.Layer):
 
     def __init__(self):
         super().__init__()
-        self.backgorund_imagen=pyglet.image.ImageGrid(pyglet.image.load("assets/sprites/scenes/center/center.png"),1,4)
         self.setBlock()
 
-    def setBlock(self):
-        self.__set(0)
+    def setBlock(self, path_img=""):
+        self.__set(0, path_img)
 
-    def setPosible(self):
-        self.__set(1)
+    def setPosible(self, path_img=""):
+        self.__set(1, path_img)
         
-    def setSelected(self):
-        self.__set(2)
+    def setSelected(self, path_img=""):
+        self.__set(2, path_img)
 
-    def setCorupted(self):
-        self.__set(3)
+    def setCorupted(self, path_img=""):
+        self.__set(3, path_img)
 
-    def __set(self, bkg_img):
+    def setImage(self, path_img):
+        if (path_img == ""):
+            path_img = "assets/sprites/scenes/center/center.png"
+        self.backgorund_imagen = pyglet.image.ImageGrid(pyglet.image.load(path_img),1,4)
+
+    def __set(self, bkg_img, path_img):
         try:
             self.remove(self.spr)
         except AttributeError:
             pass
+        self.setImage(path_img)
         self.spr = cocos.sprite.Sprite(self.backgorund_imagen[bkg_img], scale=0.8)
-        self.spr.position = director.get_window_size()[0]/2, director.get_window_size()[1]/2
+        self.spr.position = (450, 450)
         self.add(self.spr)

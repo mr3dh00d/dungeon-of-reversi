@@ -7,9 +7,8 @@ class Player(cocos.layer.Layer):
     is_event_handler = True
     def __init__(self):
         super().__init__()
-        # self.move=False
         self.keys_pressed = set()
-        self.setDown((director.get_window_size()[0]/2, director.get_window_size()[1]/2))
+        self.setDown((350, 450))
 
     def setDown(self, position):
         self.__setImage("assets/characters/red hood/down.png", (1,1), position)
@@ -29,21 +28,8 @@ class Player(cocos.layer.Layer):
         self.__setImage("assets/characters/red hood/left-run.png", (1,4), position, animated=True)
 
     def on_key_press (self, key, modifiers):
-        # print(pyglet.window.key.symbol_string(key))
-        # if key == pyglet.window.key.DOWN:
-        #     print(pyglet.window.key.symbol_string(key))
-        #     self.spr.do(cocos.actions.MoveBy((0,-100)))
-        #     print(self.spr.position)
         self.keys_pressed.add(key)
         self.updateSprite()
-    #     if key == pyglet.window.key.RIGHT:
-    #         self.setRightRun(self.spr.position)
-    #     elif key == pyglet.window.key.LEFT:
-    #         self.setLeftRun(self.spr.position)
-    #     elif key == pyglet.window.key.UP:
-    #         self.setUpRun(self.spr.position)
-    #     elif key == pyglet.window.key.DOWN:
-    #         self.setDownRun(self.spr.position)
 
 
     def on_key_release (self, key, modifiers):
@@ -51,12 +37,8 @@ class Player(cocos.layer.Layer):
         self.updateSprite()
 
     def updateSprite(self):
-        # key_names = [pyglet.window.key.symbol_string (k) for k in self.keys_pressed]
-        # text = 'Keys: '+','.join (key_names)
-        # print(text)
         for key in self.keys_pressed:
             if key == pyglet.window.key.RIGHT:
-                # print("entre")
                 self.setRightRun(self.spr.position)
             elif key == pyglet.window.key.LEFT:
                 self.setLeftRun(self.spr.position)
