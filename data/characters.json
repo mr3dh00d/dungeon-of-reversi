@@ -1,0 +1,15 @@
+{
+    "player":{
+        "name": "Red Hood",
+        "assets": {
+            "down": "assets/characters/red hood/down.png",
+            "down-run": "assets/characters/red hood/down-run.png",
+            "up": "assets/characters/red hood/up.png",
+            "up-run": "assets/characters/red hood/up-run.png",
+            "right": "assets/characters/red hood/right.png",
+            "right-run": "assets/characters/red hood/right-run.png",
+            "left": "assets/characters/red hood/left.png",
+            "left-run": "assets/characters/red hood/left-run.png"
+        }
+    }
+}

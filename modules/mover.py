@@ -1,14 +1,15 @@
 import cocos
 import pyglet
-import json
+from dungeon_of_reversi import ChangeSecene
+from modules.keyboard import keyboard
+from modules.map import getMap
+from modules.portal import Portal
 from modules.collision import CollisionBlock
-
-keyboard = pyglet.window.key.KeyStateHandler()
 
 class Mover(cocos.actions.Move):
     def step(self, dt):
         super().step(dt)
-        speed = 400
+        speed = 350
         vel_x = (keyboard[pyglet.window.key.RIGHT] - keyboard[pyglet.window.key.LEFT])
         vel_y = (keyboard[pyglet.window.key.UP] - keyboard[pyglet.window.key.DOWN])
         velocity = (vel_x, vel_y)
@@ -37,27 +38,19 @@ class Mover(cocos.actions.Move):
             position = (position[0], max[1])
 
         position = CollisionBlock(position, [(400, 400), (500, 500)])
-        # position = CollisionBlock(position, [(200, 200), (300, 300)])
-        for block in json.load(open("data/maps.json"))['up-right']['blocks']:
-            position = CollisionBlock(position, block) 
-        # print(position)
-
-
-        # center_lateral = (360, 540)
-        # center_vertical = (400, 540)
-        # if(position[0] <= center_lateral[0]+10):
-        #     if(position[0] >= center_lateral[0] and center_vertical[1] > position[1] > center_vertical[0]):
-        #         position = (center_lateral[0], position[1])
-        # if(position[0] >= center_lateral[1]-10):
-        #     if(position[0] <= center_lateral[1] and center_vertical[1] > position[1] > center_vertical[0]):
-        #         position = (center_lateral[1], position[1])
-        # if(position[1] <= center_vertical[0]+10):
-        #     if(position[1] >= center_vertical[0] and center_lateral[1] > position[0] > center_lateral[0]):
-        #         position = (position[0], center_vertical[0])
-        # if(position[1] >= center_vertical[1]-10):
-        #     if(position[1] <= center_vertical[1] and 540 > position[0] > 360):
-        #         position = (position[0], center_vertical[1])
-
-        # print(tuple(map(lambda x: int(x), position)))
-        self.target.position = position
-        self.target.velocity = velocity
+        GameMap = getMap()
+        for block in GameMap['blocks']:
+            position = CollisionBlock(position, block)
+        inPortal = False
+        for direction, portal in GameMap['portals'].items():
+            if(Portal(portal, position)):
+                inPortal = True
+                break
+        if(inPortal):
+            self.target.stop()
+            ChangeSecene(direction)
+        try:
+            self.target.position = position
+            self.target.velocity = velocity
+        except:
+            pass
